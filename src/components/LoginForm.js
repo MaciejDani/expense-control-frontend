@@ -23,7 +23,7 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      localStorage.setItem('token', data.token); // zapisujemy token
+      localStorage.setItem('token', `${data.tokenType} ${data.accessToken}`); 
       setIsLoggedIn(true);
       setError(null);
     } catch (err) {
