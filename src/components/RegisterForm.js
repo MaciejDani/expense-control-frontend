@@ -29,7 +29,7 @@ function RegisterForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Rejestracja nie powiodła się');
+        throw new Error('Registration failed');
       }
 
       const message = await response.text();
@@ -49,13 +49,13 @@ function RegisterForm() {
 
   return (
     <div>
-      <h2>Rejestracja</h2>
+      <h2>Register</h2>
       {success && <p style={{ color: 'green' }}>{success}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Nazwa użytkownika:</label>
+          <label>Username:</label>
           <input
             type="text"
             name="username"
@@ -77,7 +77,7 @@ function RegisterForm() {
         </div>
 
         <div>
-          <label>Hasło:</label>
+          <label>Password:</label>
           <input
             type="password"
             name="password"
@@ -88,7 +88,7 @@ function RegisterForm() {
         </div>
 
         <div>
-          <label>Domyślna waluta:</label>
+          <label>Default Currency:</label>
           <select
             name="defaultCurrency"
             value={formData.defaultCurrency}
@@ -101,7 +101,7 @@ function RegisterForm() {
           </select>
         </div>
 
-        <button type="submit">Zarejestruj</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
