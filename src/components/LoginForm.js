@@ -19,7 +19,7 @@ function LoginForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Błędne dane logowania');
+        throw new Error('Incorrect login details');
       }
 
       const data = await response.json();
@@ -34,13 +34,13 @@ function LoginForm() {
 
   return (
     <div>
-      <h2>Logowanie</h2>
+      <h2>Login</h2>
       {isLoggedIn ? (
-        <p>Zalogowano pomyślnie 🎉</p>
+        <p>Logged in successfully 🎉</p>
       ) : (
         <form onSubmit={handleLogin}>
           <div>
-            <label>Nazwa użytkownika:</label>
+            <label>Username:</label>
             <input
               type="text"
               value={username}
@@ -48,14 +48,14 @@ function LoginForm() {
             />
           </div>
           <div>
-            <label>Hasło:</label>
+            <label>Password:</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit">Zaloguj</button>
+          <button type="submit">Log in</button>
         </form>
       )}
       {error && <p style={{ color: 'red' }}>{error}</p>}
