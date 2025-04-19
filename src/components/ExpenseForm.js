@@ -55,11 +55,11 @@ function ExpenseForm() {
     const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch('http://localhost:8080/api/add', {
+      const response = await fetch('http://localhost:8080/expenses/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: token
         },
         body: JSON.stringify(formData)
       });

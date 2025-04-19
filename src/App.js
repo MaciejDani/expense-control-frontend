@@ -3,6 +3,7 @@ import Header from './components/Header';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import ExpenseForm from './components/ExpenseForm';
+import CategoryForm from './components/CategoryForm';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +27,10 @@ function App() {
       <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
 
       {isLoggedIn ? (
+        <>
         <ExpenseForm />
+        <CategoryForm />
+        </>
       ) : (
         <>
           <LoginForm onLoginSuccess={handleLoginSuccess} />
