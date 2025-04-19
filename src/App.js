@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import ExpenseForm from './components/ExpenseForm';
 import CategoryForm from './components/CategoryForm';
+import BudgetForm from './components/BudgetForm';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,6 +31,7 @@ function App() {
         <>
         <ExpenseForm />
         <CategoryForm />
+        <BudgetForm />
         </>
       ) : (
         <>
