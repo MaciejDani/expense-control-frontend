@@ -4,17 +4,22 @@ function StatsPage() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [summary, setSummary] = useState(null);
+  const [totalExpenses, setTotalExpenses] = useState(null);
   const [error, setError] = useState(null);
+
+  const currency = localStorage.getItem('currency') || 'PLN'; // domyślnie PLN, jeśli nic nie ma
 
   const fetchSummary = async () => {
     const token = localStorage.getItem('token');
-
     try {
-      const response = await fetch(`http://localhost:8080/reports/monthly-summary?year=${year}&month=${month}`, {
-        headers: {
-          Authorization: token
+      const response = await fetch(
+        `http://localhost:8080/reports/monthly-summary?year=${year}&month=${month}`,
+        {
+          headers: {
+            Authorization: token,
+          },
         }
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Failed to fetch summary');
@@ -29,9 +34,34 @@ function StatsPage() {
     }
   };
 
+  const fetchTotalExpenses = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(
+        `http://localhost:8080/reports/total-expenses?year=${year}&month=${month}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch total expenses');
+      }
+
+      const data = await response.json();
+      setTotalExpenses(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      setTotalExpenses(null);
+    }
+  };
+
   return (
     <div>
-      <h2>Monthly Summary</h2>
+      <h2>Monthly Statistics</h2>
 
       <div>
         <label>Year:</label>
@@ -51,6 +81,9 @@ function StatsPage() {
         />
 
         <button onClick={fetchSummary}>Get Summary</button>
+        <button onClick={fetchTotalExpenses} style={{ marginLeft: '10px' }}>
+          Get Total Expenses
+        </button>
       </div>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -58,18 +91,24 @@ function StatsPage() {
       {summary && (
         <div>
           <h3>Summary for {summary.year}/{summary.month}</h3>
-
           {summary.categorySum && Object.keys(summary.categorySum).length > 0 ? (
             <ul>
               {Object.entries(summary.categorySum).map(([category, sum]) => (
                 <li key={category}>
-                  {category}: {sum}
+                  {category}: {sum} {currency}
                 </li>
               ))}
             </ul>
           ) : (
             <p>No expenses found for this month.</p>
           )}
+        </div>
+      )}
+
+      {totalExpenses !== null && (
+        <div>
+          <h3>Total Expenses for {month}/{year}:</h3>
+          <p>{totalExpenses} {currency}</p>
         </div>
       )}
     </div>

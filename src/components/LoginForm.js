@@ -23,6 +23,7 @@ function LoginForm({ onLoginSuccess }) {
 
       const data = await response.json();
       localStorage.setItem('token', `${data.tokenType} ${data.accessToken}`);
+      localStorage.setItem('currency', data.defaultCurrency);
       setErrorMessage(null);
 
       if (onLoginSuccess) {
