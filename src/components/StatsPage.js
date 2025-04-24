@@ -7,7 +7,7 @@ function StatsPage() {
   const [totalExpenses, setTotalExpenses] = useState(null);
   const [error, setError] = useState(null);
 
-  const currency = localStorage.getItem('currency') || 'PLN'; // domyślnie PLN, jeśli nic nie ma
+  const currency = localStorage.getItem('currency') || 'PLN';
 
   const fetchSummary = async () => {
     const token = localStorage.getItem('token');
@@ -80,9 +80,9 @@ function StatsPage() {
           onChange={(e) => setMonth(Number(e.target.value))}
         />
 
-        <button onClick={fetchSummary}>Get Summary</button>
+        <button onClick={fetchSummary}>Get summary</button>
         <button onClick={fetchTotalExpenses} style={{ marginLeft: '10px' }}>
-          Get Total Expenses
+          Get total amount of expenses
         </button>
       </div>
 
@@ -107,7 +107,7 @@ function StatsPage() {
 
       {totalExpenses !== null && (
         <div>
-          <h3>Total Expenses for {month}/{year}:</h3>
+          <h3>Total amount of expenses for {month}/{year}:</h3>
           <p>{totalExpenses} {currency}</p>
         </div>
       )}
